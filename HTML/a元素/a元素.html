@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--常用的rel属性-->
+        <!--SEO相关-->
+            <a href = 'https://www.baidu.com/' rel = 'nofollow opener' target = '_blank'>百度一下</a>
+            <!--1.如果外连接的内容不重要、或为无关信息、包含敏感信息时，则需要加上 rel = 'nofollow'
+                2.如果目标页面属于外站，并不希望共享权重
+                总结来说，SEO有个权重策略，当一个权重很高的网站外链一个权重较低的网站时，权重较低的网站的权重有概率会被提高
+                故大型网站、新闻媒体等，会给外链上的网站加上rel = 'nofollow',以防止权重外泄。
+            -->
+            
+            <a href = './otherHTML/广告.html' rel="sponsored">广告链接</a>
+            <!--rel="sponsored"可标记广告链接-->
+
+            <a href = './otherHTML/用户生成.html' rel = 'ugc'>用户评论</a>
+            <!--rel = 'ugc' 可标记标记用户生成内容中的链接-->
+
+        <!--隐私安全相关-->
+            <a href = 'https://www.baidu.com/' rel = 'noopener' target = '_blank'>百度一下</a>
+            <!--target = '_blank' 常常配合 rel = 'noopener'使用，
+            当使用target="_blank"打开新页面时，新页面可通过window.opener访问
+            原页面的window对象，存在钓鱼攻击风险（如篡改原页面URL）。
+            添加noopener会断开新页面与原页面的关联，使window.opener变为null-->
+            
+            <a href = 'https://www.baidu.com/' rel = 'noopener noreferrer' target = '_blank'>百度一下</a>
+            <!--在noopener的基础上，进一步隐藏来源页面的Referer信息
+            （新页面无法通过HTTP头获取来源URL）。适用于需要保护用户隐私的场景。
+            注意：开启noreferrer后，部分浏览器会默认启用noopener-->
+            <hr />
+
+   <a href = 'preview.html' rel = 'nofollow' target = '_preview'>预览</a>
+   <!--不会重复地打开多个页面，而是只是打开一个页面，后续点击只是在不断地刷新这个页面-->
+    <hr />
+
+    <a href = './images/img1.jpg'  download>点击可下载示例图片</a>
+    <a href = './images/img1.jpg' download = '自定义名称.jpg'>点击下载指定名称的图片</a>
+    <a href = './zips/示例压缩包.zip'>点击下载压缩包</a>
+    <!--点击可直接下载图片资源
+    如果资源跨域，则无论是否加上了download属性，都会促发下载行为-->
+    <hr />
+
+    <a href = 'https://www.baidu.com/' ping = 'you_set_get_post_web'>点我发送post请求</a>
+
+    <div id = 'baidu-div'>
+
+    </div>
+
+    <a href = '#top'>to top</a>
+    
+    <script src = './a元素.js'></script>
+
+</body>
+
+
+</html>
