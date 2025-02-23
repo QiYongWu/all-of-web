@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        <div>
+            <p>name: {{name}}</p>
+            <p>age: {{age}}</p>
+            <button @click="changeAge">点我修改年龄</button>
+            <button v-on:click = 'changeName'>点我修改姓名</button>
+        </div>
+
+        <div>
+            <p>{{Car.name}}</p>
+            <p>{{Car.age}}</p>
+            <button v-on:click = 'changeCarName'>点我修改Car's name</button>
+        </div>
+
+        <div>
+            <ul>
+                <ol v-for= "product in products" v-bind:key = product.name>{{product.age}}</ol>
+            </ul> 
+           
+        </div>
+
+        <div>
+            <p>{{Person.name}},{{Person.age}},{{Person.info}}</p>
+            <button @click = 'changePersonWangName'>点我修改名字</button>
+        </div>
+
+        <div>
+            <p v-for="person in Persons" :id=person.info>{{person.age}}</p>
+        </div>
+        <button @click = 'changePersonsAge'>点我修改年龄</button>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+    <script>
+        const { createApp, ref ,reactive } = Vue;
+//它从一个名为 Vue 的对象中提取出 createApp 和 ref、reactive 三个属性，并将它们赋值给同名的局部变量
+//reactive 只能定义对象类型的响应数据，而ref既可定义基本类型的、也可定义对象类型的响应数据
+
+        createApp({
+           
+            setup() {
+                let Person = ref({
+                    name:'王兴利',
+                    age:19,
+                    info:'my Son'
+                });
+
+                let Persons= ref([
+                    {
+                    name:'王兴利',
+                    age:19,
+                    info:'my Son'
+                },
+
+                {
+                    name:'a',
+                    age:20,
+                    info:'my Son'
+                },
+
+                {
+                    name:'b',
+                    age:21,
+                    info:'my Son'
+                }
+            ])
+                let age = ref(18);
+                let name = ref('Jack');
+                const Car = reactive({
+                    name: '宝马',
+                    age:40,
+                    method: function(){
+                        alert(`name : ${this.name} , age : ${this.age}`);
+                    }
+                });
+                let products = [
+                    {
+                    name:'a',
+                    counts : 18
+                },
+
+                {
+                    name:'b',
+                    counts : 19
+                },
+
+                {
+                    name:'c',
+                    counts : 20
+                },
+            ]
+                
+            function changePersonWangName(){
+                Person.value.name = 'Jack'
+            }
+
+            function changePersonsAge(){
+                Persons.value[0].age = 1000;
+            }
+            
+                function changeAge() {
+                    age.value = 20;
+                };
+                function changeName(){
+                    name.value = 'hello'
+                };
+
+                function changeCarName(){
+                    Car.name = '兰博基尼'
+                }
+
+                return { age, name, changeAge ,changeName,Car,changeCarName,
+                    products,Person,Persons,changePersonWangName
+                ,changePersonsAge};
+            }
+        }).mount('#root');
+    </script>
+</body>
+</html>

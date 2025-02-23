@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id = 'root'>
+        <p>{{name1}}</p>
+        <button @click = 'changeName'>点我修改名字</button>
+    </div>
+    
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js">
+    </script>
+
+    <script>
+        const {createApp,toRefs} = Vue;
+        //const createApp = Vue.createApp
+        createApp({
+            setup(){
+                let names = [{
+                    name:'Jack'
+                },{
+                    name:'Mini'
+                },{
+                    name:'abc'
+                }];
+
+                let {name1,name2,name3} = toRefs(names);
+
+
+                function changeName(){
+                    name1.value = 'abc';
+                    
+                };
+                return{name,changeName};
+            }
+        }).mount('#root');
+    </script>
+</body>
+</html>

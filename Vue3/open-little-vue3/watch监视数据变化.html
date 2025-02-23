@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id = 'root'>
+        <div>
+            <p>age: {{age}}</p>
+            <button @click = 'changeAge'>click me</button>
+        </div>
+        <div>
+            <p v-for = 'key in data'>{{key.name}}</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.47/vue.global.min.js">
+    </script>
+    <Script>
+        const {createApp,ref,watch} = Vue;
+        createApp({
+            setup(){
+                let age = ref(20);
+                const data = ref([
+                    { id: 1, name: "Alice", age: 25 },
+                    { id: 2, name: "Bob", age: 30 },
+                    { id: 3, name: "Charlie", age: 22 },
+                    { id: 4, name: "David", age: 28 },
+                    { id: 5, name: "Eve", age: 35 }
+                        ]);
+
+                function changeAge(){
+                   age.value ++;
+                    
+                }
+                watch(age,(newAge,oldAge) => {
+                    alert(`old age : ${oldAge} , new age : ${newAge}`);
+                });
+                return {age,changeAge,data};
+            }
+
+        }).mount('#root');
+    </Script>
+</body>
+</html>

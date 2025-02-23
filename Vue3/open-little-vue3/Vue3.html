@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id = 'root'>
+        <div>
+            <p>{{name}}</p>
+            <p>{{age}}</p>
+            <h1>{{age<18? '未成年人' : '成年人'}}</h1>
+            <button v-on:click = 'showInfo'>点我查看信息</button>
+        </div>
+        <hr />
+        <div class = '指令语法'>
+            <!-- v-bind: 用于指定动态属性值，单向绑定,只能通过data(){}修改value-->
+            <a v-bind:href = url rel = 'noopener noreferrer' target = '_blank'>百度一下</a>
+            <hr />
+            <!--简写 : -->
+
+            <!--v-model:用于动态的数据双向绑定,默认就会绑定元素的 value 属性-->
+            <input v-model= valueText>
+            <p>{{valueText}}</p>
+            <hr />
+
+            <!-- v-on: 用于绑定事件监听-->
+            <button v-on:click = 'showInfo2'>New Information</button>
+            <hr />
+            <!--简写 @ -->
+        </div>
+
+        <div class = '计算属性'>
+            <p class = 'math-score-div'>
+                {{mathScore}}
+            </p>
+
+            <p class = 'result-text-div'>
+                {{showResultText}}
+            </p>
+
+            <p class = 'country-div'>
+                {{country}}
+            </p>
+
+            <p class = 'is-in-China-div'>
+                {{isInChina}}
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js"></script>
+    <script>
+        // const {createApp} = Vue; 
+        // createApp({
+        //     data : function() {
+        //         return{
+        //         name : 'Jack',
+        //         age : 18
+        //         };
+        //      
+        //     },
+
+            //  methods :{
+            //     function showInfo(){
+
+            //     }
+            //  }
+        // }).mount('#root')
+
+        const {createApp} = Vue; 
+
+            createApp({
+                data(){ //一个函数，返回一个对象，包含数据名，数据值<key,value>
+                    return {
+                        valueText:'ShangHai',
+                        mathScore :66,
+                        country : 'USA',
+                    }
+                },
+
+                computed: {  //一个对象，包含多种方法，不需要返回
+                  
+                    // 计算属性在 Vue.js 中会缓存其返回值，只有当依赖的数据发生变化时才会重新计算，
+                    // 而方法每次调用都会重新执行。
+                    // 当页面需要多次显示某个计算结果时，计算属性只需执行一次，方法则会执行多次，
+                    // 因此计算属性更高效，能节省资源。
+
+                showResultText() {
+                    const resultText  = this.mathScore >= 60 ? '成绩及格' : '成绩不及格';
+                    console.log('hskaj');
+                    return resultText;
+                },
+                
+                isInChina(){
+                    return this.country === 'China' ? true : false;
+                }
+                },
+
+                setup() { //一个函数，组合式API，集成需要使用的数据和方法，需要返回
+                    let name = 'Mini';
+                    let age = 30;
+                    let url = 'https://www.baidu.com/'
+                    function showInfo() {
+                        alert(`name : ${name} , age : ${age}`)
+                        console.log(`name : ${name} , age : ${age}`);
+                    }
+
+                    function showInfo2(){
+                        alert(`showInfo2`);
+                    }
+                    return { name, age, url,showInfo,showInfo2};
+                }
+        }).mount('#root');
+
+    </script>   
+    
+</body>
+</html>
