@@ -14,15 +14,23 @@
         <div>
             <p v-for = 'key in data'>{{key.name}}</p>
         </div>
+
+        <div class = '监控对象类型的数据'>
+            <p>Person1 : {{Person1.name}}</p>
+            <button @click = 'changePerson1Name'>点我修改名字</button>
+        </div>
     </div>
 
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.47/vue.global.min.js">
     </script>
     <Script>
-        const {createApp,ref,watch} = Vue;
+        const {createApp,ref,watch,creative} = Vue;
         createApp({
             setup(){
                 let age = ref(20);
+                const Person1 = ref({
+                    id: 1, name: "Alice", age: 25
+                });
                 const data = ref([
                     { id: 1, name: "Alice", age: 25 },
                     { id: 2, name: "Bob", age: 30 },
@@ -33,12 +41,22 @@
 
                 function changeAge(){
                    age.value ++;
-                    
                 }
-                watch(age,(newAge,oldAge) => {
+
+                function changePerson1Name(){
+                    Person1.value.name = 'Jack'
+                }
+                watch(age,(newAge,oldAge) => { //监听基本的数据类型
                     alert(`old age : ${oldAge} , new age : ${newAge}`);
                 });
-                return {age,changeAge,data};
+
+                watch(Person1.value,(newPerson1Name,oldPerson1Name) => {
+                    alert(`new Person1's name ${newPerson1Name.name} , old Person1's name ${newPerson1Name.name}`);
+                })
+                watch(data.value[0],(newValue,oldValue) => {
+                    alert(`${newValue.name},${oldValue.name}`);
+                })
+                return {age,changeAge,data,Person1,changePerson1Name};
             }
 
         }).mount('#root');

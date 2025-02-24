@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id = 'root'>
+        <h1>观看数 : {{looks}}</h1>
+        <h1>评论数 : {{comments}}</h1>
+        <button @click = Add1000Looks>观看数+1000</button>
+        <button @click = Add20Comments>评论数+20</button>
+    </div>
+    
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.2.31/vue.global.min.js">
+    </script>
+    <script>
+        const {createApp,ref,watch,watchEffect,} = Vue
+        createApp({
+            setup(){
+
+                let comments = ref(0);
+                let looks = ref(0);
+                function Add1000Looks(){
+                    looks.value += 1000;
+                }
+                function Add20Comments(){
+                    comments.value += 20;
+                }
+
+                // watch([comments,looks],(newValue) => {
+                //     let [newComments,newLooks] = newValue;
+                //     if(newComments>100 || newLooks>3000){
+                //         alert(`comments than 100 or looks than 3000`);
+                //     }
+                // })
+
+                watchEffect(()=>{
+                    if(comments.value>100 || looks.value>3000){
+                        alert(`comments than 100 or looks than 3000`);
+                    }
+                })
+
+                return {comments,looks,Add1000Looks,Add20Comments}
+            }
+        }).mount('#root');
+    </script>
+</body>
+</html>
